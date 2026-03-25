@@ -1,0 +1,93 @@
+{
+  "title": "DataOps Compass",
+  "uid": "dataops-compass",
+  "version": 1,
+  "schemaVersion": 38,
+  "timezone": "browser",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Total Questions Over Time",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [
+        {
+          "rawSql": "SELECT DATE_TRUNC('hour', timestamp) AS time, COUNT(*) AS questions FROM conversations GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "datasource": "PostgreSQL"
+    },
+    {
+      "id": 2,
+      "title": "Relevance Distribution",
+      "type": "piechart",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [
+        {
+          "rawSql": "SELECT relevance AS metric, COUNT(*) AS value FROM conversations GROUP BY relevance",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "datasource": "PostgreSQL"
+    },
+    {
+      "id": 3,
+      "title": "User Feedback (Thumbs Up / Down)",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 8},
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN feedback > 0 THEN 1 ELSE 0 END) AS thumbs_up, SUM(CASE WHEN feedback < 0 THEN 1 ELSE 0 END) AS thumbs_down FROM feedback",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "datasource": "PostgreSQL"
+    },
+    {
+      "id": 4,
+      "title": "Average Response Time (s)",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+      "targets": [
+        {
+          "rawSql": "SELECT DATE_TRUNC('hour', timestamp) AS time, AVG(response_time) AS avg_response_time FROM conversations GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "datasource": "PostgreSQL"
+    },
+    {
+      "id": 5,
+      "title": "OpenAI Cost Over Time ($)",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+      "targets": [
+        {
+          "rawSql": "SELECT DATE_TRUNC('hour', timestamp) AS time, SUM(openai_cost) AS total_cost FROM conversations GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "datasource": "PostgreSQL"
+    },
+    {
+      "id": 6,
+      "title": "Token Usage Over Time",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 20},
+      "targets": [
+        {
+          "rawSql": "SELECT DATE_TRUNC('hour', timestamp) AS time, AVG(total_tokens) AS avg_tokens FROM conversations GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "datasource": "PostgreSQL"
+    }
+  ]
+}

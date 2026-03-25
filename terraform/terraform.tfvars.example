@@ -1,0 +1,12 @@
+# Copy to terraform.tfvars and fill in your values
+# NEVER commit terraform.tfvars to git (already in .gitignore)
+
+project_id        = "your-gcp-project-id"
+region            = "europe-west1"
+image_tag         = "latest"
+openai_api_key    = "sk-..."
+postgres_db       = "dataops_assistant"
+postgres_user     = "admin"
+postgres_password = "your-secure-password"
+collection_name   = "dataops_docs"
+model_name        = "gpt-4o-mini"
