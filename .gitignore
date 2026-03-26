@@ -41,4 +41,3 @@ terraform/terraform.tfvars
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 *.tfplan
-.github/workflows/deploy.yml
