@@ -24,7 +24,10 @@ MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4o-mini")
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 NUM_RESULTS = 5
 
-openai_client = OpenAI()
+openai_client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    base_url=os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"),
+)
 embedding_model = TextEmbedding(model_name=EMBEDDING_MODEL)
 
 
